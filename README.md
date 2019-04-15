@@ -138,9 +138,9 @@ We are also preparing an **R package** for the algorithm.
 
 	| Data file | Description | Molecule counts |
 	|:-------------:|:-------------|:-----:|
-	| miRNA biomarkers | miRNAs obtained from [oncomiR](http://www.oncomir.org) that are simultaneously correlated with tumor development, tumor staging, tumor grade and patient survival | 288 |
-	| oncomirs | high-confidence cancer associated miRNAs compiled from [MNDR v2.0](http://www.rna-society.org/mndr/) database | 399 |
-    | Cancer genes | cancer gene census from [COSMIC](https://cancer.sanger.ac.uk/census) database | 616 |<br>
+	| miRNA biomarker set | miRNAs obtained from [oncomiR](http://www.oncomir.org) that are simultaneously correlated with tumor development, tumor staging, tumor grade and patient survival | 288 |
+	| Oncomir set | high-confidence cancer associated miRNAs compiled from [MNDR v2.0](http://www.rna-society.org/mndr/) database | 399 |
+    | Cancer gene set | cancer gene census from [COSMIC](https://cancer.sanger.ac.uk/census) database | 616 |<br>
 
     These reference data files are provided along with relevant [source codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses).
 
