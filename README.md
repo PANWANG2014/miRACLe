@@ -94,7 +94,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 2. Generally, all these codes are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN PROGRAM'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
 3. Files required for the reproduction of the evaluations can be broadly classified into three categories:<br>
 
-* Input sequence-based score files (seqScore)<br>
+* Sequence-based predictions (including seqScores for integrative methods)<br>
 
 	| Data file | Description | 
 	|:-------------:|:-------------| 
@@ -113,7 +113,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | Combine_MMIs.txt | combined predictions from DIANA\-microT\-CDS, miRanda\-mirSVR, MirTarget4, PITA and TargetScan7.CWCS|
     | Symbol\_to\_ID.txt | paired gene symbols and gene entrez ids downloaded from [HGNC](https://www.genenames.org/download/custom/)|
 
-    These seqScore files are provided in a compressed file [Competing\_methods.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
+    These predictions are provided in a compressed file [Competing\_methods.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
 
 * Input expression data files (mirExpr & tarExpr)<br>
 
