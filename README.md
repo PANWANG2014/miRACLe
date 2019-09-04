@@ -13,7 +13,7 @@
 
 ---
 ### <a name="1">1. Introduction</a>
-**miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** is a newly developed miRNA target prediction tool. It combines genome-wide expression profiles and the cumulative weighted context++ score from TargetScan in a random contact model, and then infers miRNA-mRNA interactions (MMIs) by the relative probability of effective contacts. Evaluation by a variety of measures shows that miRACLe consistently outperforms state-of-the-art methods in prediction accuracy, regulatory potential and biological relevance while has a distinct feature of inferring individual-specific miRNA targets. Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 30 seconds of CPU time to complete the prediction for one sample. Importantly, we show that our model can also be applied to other sequence-based algorithms to improve their predictive power, such as DIANA-microT-CDA, miRanda-mirSVR and MirTarget4.  <br>
+**miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** is a newly developed miRNA target prediction tool. It combines genome-wide expression profiles and the cumulative weighted context++ score from TargetScan in a random contact model, and then infers miRNA-mRNA interactions (MMIs) by the relative probability of effective contacts. Evaluation by a variety of measures shows that miRACLe consistently outperforms state-of-the-art methods in prediction accuracy, regulatory potential and biological relevance while has a distinct feature of inferring individual-specific miRNA targets. Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 30 seconds of CPU time to complete the prediction for one sample. Importantly, we show that our model can also be applied to other sequence-based algorithms to improve their predictive power, such as DIANA-microT-CDS, miRanda-mirSVR and MirTarget4.  <br>
 
 
 ---
@@ -53,7 +53,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 
 	The remainder of the file contains data for each of the mRNAs. There is one line for each mRNA. Each line contains the mRNA name and a value for each sample in the dataset.<br>
 
-    **Note that** the input miRNA/mRNA file should be transformed into a non-negative matrix, in order for the main program to execute correctly. Both microarray profiling and RNA sequencing data are accepted as input. To achieve optimal prediction on the sequencing data, we strongly recommend that users provide log2 transformed normalized counts (e.g. RSEM or RPM) as the input for our program.
+    **Note that** the input miRNA/mRNA expression file should be transformed into a non-negative matrix, in order for the main program to execute correctly. Both microarray profiling and RNA sequencing data are accepted as input. To achieve optimal prediction on the sequencing data, we strongly recommend that users provide log2 transformed normalized counts (e.g. RSEM or RPM) as the input for our program.
 
 3. **Sample matching file** generally contains two columns, which shows the corresponding relationship of the sample identifiers in miRNA expression file and mRNA expression file (miRNA must be the first column and mRNA must be the second column). It also serves as a index to denote which samples we choose to analyze. It is organized as follows:<br>
 
@@ -73,7 +73,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 #### <a name="4">2.2 Script Execution</a><br>
 miRACLe is written in R. The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The users only need to focus on the 'DATA INPUT' part, which consists of two parts as follows:<br>
 
-The first part contains the [sequence-based interaction scores](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
+The first part contains the [sequence-based interaction scores](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
 
 	
 > seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))<br>
@@ -85,7 +85,7 @@ The second part contains paired miRNA-mRNA expression profiles and should be pro
 >tarExpr = as.matrix(read.table("HNSC\_mRNA\_expression.txt", head = FALSE, sep = "\t"))<br>	
 
 
-We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for more advanced users.
+We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for more skilled users.
 
 ---
 ### <a name="5">3. Reproduction of the miRACLe paper`s analyses</a><br>
