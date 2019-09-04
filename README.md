@@ -73,7 +73,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 #### <a name="4">2.2 Script Execution</a><br>
 miRACLe is written in R. The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The users only need to focus on the 'DATA INPUT' part, which consists of two parts as follows:<br>
 
-The first part contains the sequence-based interaction scores (seqScores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores).<br>
+The first part contains the sequence-based interaction scores (seqScores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
 
 User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
 	
@@ -124,7 +124,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | TCGA data | log2-transformed RPM/RSEM data for 7991 cancer patients from 32 TCGA cancer types |
 	| MCC data | normalized microarray data for 68 tumor tissues and 21 normal tissues |
 
-	These expression data files are provided along with relevant source codes except that the TCGA expression data files are provided in a compressed file [TCGA\_data.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
+	These expression data files are provided along with relevant source codes except that the TCGA expression data files are provided in a compressed file [TCGA\_data.7z](https://figshare.com/s/045e07fb7c8278b9b3c2).<br> 
 
 * Validation data (Reference data)<br>
 	* Experimentally validated MMIs<br>
@@ -132,7 +132,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 	| Data file | Description | validated MMI counts |
 	|:-------------:|:-------------|:-----:|
 	| Vset\_HeLa.txt | MMIs that are validated in HeLa cells from TarBase v8.0 | 34,263 |
-    | Vset\_Celllines.txt | MMIs that are validated in cell lines from TarBase v8.0 | 349,726 |
+    | Vset\_celllines.txt | MMIs that are validated in cell lines from TarBase v8.0 | 349,726 |
 	| Vset\_all.txt | validated MMIs obtained from TarBase v8.0 | 376,205 |
     | Vset\_hc.txt | high-confidence set compiled from TarBase v8.0, miRTarbase v7.0, miRecords and oncomirDB | 10,575 |
 	
