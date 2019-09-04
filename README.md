@@ -6,7 +6,7 @@
 2. <a href="#2">Executing miRACLe</a><br>
 	2.1 <a href="#3">Files required</a><br>
 	2.2 <a href="#4">Script Execution</a><br>
-3. <a href="#5">Reproduction of the miRACLe paper`s analyses</a><br>
+3. <a href="#5">Benchmarking evaluations</a><br>
 4. <a href="#6">References</a>
 
 
@@ -73,7 +73,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 #### <a name="4">2.2 Script Execution</a><br>
 miRACLe is written in R. The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The users only need to focus on the 'DATA INPUT' part, which consists of two parts as follows:<br>
 
-The first part contains the sequence-based interaction scores for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores).<br>
+The first part contains the sequence-based interaction scores (seqScores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores).<br>
 
 User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
 	
@@ -89,10 +89,10 @@ The second part contains paired miRNA-mRNA expression profiles and should be pro
 We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for more skilled users.
 
 ---
-### <a name="5">3. Reproduction of the miRACLe paper`s analyses</a><br>
-1. The codes to reproduce these analyses in the paper are written in R.<br> 
-2. Generally, all these [codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses) are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN PROGRAM'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
-3. Files required for the reproduction of the analyses can be broadly classified into three categories:<br>
+### <a name="5">3. Benchmarking evaluations</a><br>
+1. The codes to reproduce the benchmarking evaluations are written in R.<br> 
+2. Generally, all these codes are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN PROGRAM'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
+3. Files required for the reproduction of the evaluations can be broadly classified into three categories:<br>
 
 * Input sequence-based score files (seqScore)<br>
 
@@ -111,6 +111,9 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | miRWalk3.txt | human predictions restricted to 3`UTR obtained from miRWalk v3.0|
     | PITA.txt | the top human predictions with 3/15 flank obtained from PITA|
     | Combine_MMIs.txt | combined predictions from DIANA\-microT\-CDS, miRanda\-mirSVR, MirTarget4, PITA and TargetScan7.CWCS|
+    | Symbol\_to\_ID.txt | paired gene symbols and gene entrez ids downloaded from [HGNC](https://www.genenames.org/download/custom/)|
+
+    These seqScore files are provided in a compressed file [Competing\_methods.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
 
 * Input expression data files (mirExpr & tarExpr)<br>
 
@@ -121,7 +124,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | TCGA data | log2-transformed RPM/RSEM data for 7991 cancer patients from 32 TCGA cancer types |
 	| MCC data | normalized microarray data for 68 tumor tissues and 21 normal tissues |
 
-	These expression data files are provided in a compressed file [Expression_data.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
+	These expression data files are provided along with relevant source codes except that the TCGA expression data files are provided in a compressed file [TCGA\_data.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
 
 * Validation data (Reference data)<br>
 	* Experimentally validated MMIs<br>
@@ -148,8 +151,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 	|:-------------:|:-------------|:-----:|
     | Cancer\_gene\_set | cancer genes obtained from cancer gene census | 723 |<br>
 
-    These reference data files are provided along with relevant [source codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses).
-
+    These reference data files are provided along with relevant source codes.
 
 ---
 ### <a name="6">4. References</a><br>
