@@ -1,4 +1,4 @@
-# miRACLe: inference of individual-specific miRNA-mRNA interactions
+# miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model
 <br>
 
 ## Table of contents
@@ -7,17 +7,14 @@
 	2.1 <a href="#3">Files required</a><br>
 	2.2 <a href="#4">Script Execution</a><br>
 3. <a href="#5">Reproduction of the miRACLe paper`s analyses</a><br>
-4. <a href="#6">TCGA&NCI-60 prediction results</a>
+4. <a href="#6">References</a>
 
 
 
 ---
 ### <a name="1">1. Introduction</a>
-**miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** is a newly developed miRNA target prediction tool. Based on a random contact model, assuming that different types of RNAs in a sample are identical particles that move freely, contact each other randomly and bind to each other with different efficiencies, miRACLe intrinsically approximates the competition among all RNA molecules simultaneously, and integrates both sequence-based and expression-based information in prediction. The rational is illustrated in the Figure below. Unlike most of the existing methods, miRACLe does not require preselection of candidates (e.g. differentially expressed molecules), nor any learning process on sample data. Instead, miRACLe infers miRNA-mRNA interactions (MMIs) directly from high-dimensional data provided by a single sample. Therefore, this technique supports prediction of individual-specific miRNA-target interactions. Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 30 seconds of CPU time to complete the prediction for one sample.<br>
+**miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** is a newly developed miRNA target prediction tool. It combines genome-wide expression profiles and the cumulative weighted context++ score from TargetScan in a random contact model, and then infers miRNA-mRNA interactions (MMIs) by the relative probability of effective contacts. Evaluation by a variety of measures shows that miRACLe consistently outperforms state-of-the-art methods in prediction accuracy, regulatory potential and biological relevance while has a distinct feature of inferring individual-specific miRNA targets. Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 30 seconds of CPU time to complete the prediction for one sample. Importantly, we show that our model can also be applied to other sequence-based algorithms to improve their predictive power, such as DIANA-microT-CDA, miRanda-mirSVR and MirTarget4.  <br>
 
-![Workflow](https://github.com/PANWANG2014/miRACLe/blob/master/Workflow/Workflow%20of%20miRACLe.png)<br>
-
-This figure shows the workflow of the miRACLe algorithm. (A) miRACLe is based on a random contact model in which the RNAs in a cell are assumed to be identical particles moving freely and randomly contacting each other. Different types of miRNAs compete for a common target mRNA, while different mRNAs compete for common miRNAs. Once the particles contact each other, only a certain percentage of the contacts lead to potent interactions under the condition that these hits are transformed into effective contacts marked by the formation of stable RISCs (RNA-induced silencing complex). (B) The process of targeting is determined by contact count and binding efficiency. The former correlates with the expression levels of the molecules, while the latter is quantified by the CWCS (cumulative weighted context++ score) provided by [TargetScan](https://elifesciences.org/articles/05005). With these parameters, miRACLe computes a score that measures the relative activity of each miRNA-target interaction.
 
 ---
 ### <a name="2">2. Executing miRACLe</a>
@@ -28,11 +25,11 @@ In order to run the current version of miRACLe, the users should provide two dat
 
 	| miRNA | TCGA-05-4384-01A-01T-1754-13 | TCGA-05-4390-01A-02T-1754-13 | TCGA-05-4396-01A-21H-1857-13 | TCGA-50-5066-01A-01T-1627-13|
 	| :-------------: |:-------------:| :-----:| :-----:|:-----:|
-	| hsa-let-7a-5p | 19.0144019352802 | 16.2421134450244 | 19.2817036827951 | 18.072179718816 |
-	| hsa-let-7a-3p | 7.31288295528436 | 6.20945336562895 | 7.83920378809694 | 6.2667865406949 |
-	| hsa-let-7a-2-3p | 6.52356195605701 | 5.4594316186373 | 3.70043971814109 | 7.38370429247405 |
-	| hsa-let-7b-5p | 16.9613140283806 | 15.5496944365338 | 17.8444238072634 | 16.9950715116303 |
-	| hsa-let-7b-3p | 7.92481250360578 | 5.20945336562895 | 7.66533591718518 | 6.82017896241519 |
+	| hsa-let-7a-5p | 19.0144 | 16.2421 | 19.2817 | 18.0721 |
+	| hsa-let-7a-3p | 7.31298 | 6.2094 | 7.8392 | 6.2667|
+	| hsa-let-7a-2-3p | 6.5235 | 5.4594 | 3.7004 | 7.3837 |
+	| hsa-let-7b-5p | 16.9613 | 15.5496 | 17.8444 | 16.9950 |
+	| hsa-let-7b-3p | 7.9248 | 5.2094 | 7.6653 | 6.8201 |
 
 	The first line contains the labels Name followed by the identifiers for each sample in the dataset. <br>
 	>Line format: `Name(tab)(sample 1 name)(tab)(sample 2 name) (tab) ... (sample N name)`<br>
@@ -44,11 +41,11 @@ In order to run the current version of miRACLe, the users should provide two dat
 
 	| Gene | TCGA-05-4384-01 | TCGA-05-4390-01 | TCGA-05-4396-01 | TCGA-50-5066-01|
 	| :-------------: |:-------------:| :-----:| :-----:|:-----:|
-	| AARS | 10.70943229 | 11.69327441 | 12.42829508 | 11.04643008 |
-	| AASDHPPT | 9.908138588 | 9.671621204 | 10.11131958 | 9.98327168 |
-	| AASDH | 7.94715708 | 7.289783756 | 8.321654408 | 7.627425906 |
-	| AASS | 9.964902673 | 7.775210583 | 9.172307988 | 5.950624713 |
-	| AATF | 9.952503787 | 9.538021465 | 9.367084237 | 8.437501997 |
+	| AARS | 10.7094 | 11.6932 | 12.4282 | 11.0464 |
+	| AASDHPPT | 9.9081 | 9.6716 | 10.1113 | 9.98328 |
+	| AASDH | 7.9471 | 7.2897 | 8.3216 | 7.6274 |
+	| AASS | 9.9649 | 7.7752 | 9.1723 | 5.9506 |
+	| AATF | 9.9525 | 9.5380 | 9.3670 | 8.4375 |
 
 	The first line contains the labels Name followed by the identifiers for each sample in the dataset. <br>
 	>Line format: `Name(tab)(sample 1 name)(tab)(sample 2 name) (tab) ... (sample N name)`<br>
@@ -56,7 +53,9 @@ In order to run the current version of miRACLe, the users should provide two dat
 
 	The remainder of the file contains data for each of the mRNAs. There is one line for each mRNA. Each line contains the mRNA name and a value for each sample in the dataset.<br>
 
-3. **Sample matching file** generally contains two columns, which shows the corresponding relationship of the sample identifiers in miRNA expression file and mRNA expression file. It also serves as a index to denote which samples we choose to analyze. It is organized as follows:<br>
+    **Note that** the input miRNA/mRNA file should be transformed into a non-negative matrix, in order for the main program to execute correctly. Both microarray profiling and RNA sequencing data are accepted as input. To achieve optimal prediction on the sequencing data, we strongly recommend that users provide log2 transformed normalized counts (e.g. RSEM or RPM) as the input for our program.
+
+3. **Sample matching file** generally contains two columns, which shows the corresponding relationship of the sample identifiers in miRNA expression file and mRNA expression file (miRNA must be the first column and mRNA must be the second column). It also serves as a index to denote which samples we choose to analyze. It is organized as follows:<br>
 
 	| miRNA | Gene | 
 	| :-------------: |:-------------:| 
@@ -72,81 +71,88 @@ In order to run the current version of miRACLe, the users should provide two dat
 	The remainder of the file contains sample identifiers used in the miRNA and mRNA expression files. There is one line for each sample. Each line contains the identifiers for that sample.<br>
 
 #### <a name="4">2.2 Script Execution</a><br>
-miRACLe is written in R. Thus the users first need to download and install the R software on the platform (refer to [R-project](https://www.r-project.org/) for details). The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The users only need to focus on the 'DATA INPUT' part, which consists of two parts as follows:<br>
+miRACLe is written in R. The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The users only need to focus on the 'DATA INPUT' part, which consists of two parts as follows:<br>
 
-The first part contains the [sequence matching scores](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) for putative miRNA-mRNA pairs, these are obtained from TargetScan and provided as two data files: **CWCS** and **conserved\_CWCS**. The CWCS file contains CWCS values all putative miRNA-mRNA combinations predicted by TargetScan, while the conserved\_CWCS file only contains CWCS values for the conserved miRNA-mRNA pairs. The uses can select either one according to their interest.
+The first part contains the [sequence-based interaction scores](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
+
 	
-> seqScore = as.matrix(read.table("CWCS.txt", head = TRUE, sep = "\t"))<br>
+> seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))<br>
 
 The second part contains paired miRNA-mRNA expression profiles and should be provided by the users. 
 
->mirtaList = as.matrix(read.table("Sample\_miRNA\_mRNA\_paired.txt", head = TRUE, sep = "\t"))<br>
->mirExpr = as.matrix(read.table("Sample\_miRNA\_expression.txt", head = FALSE, sep = "\t"))<br>
->taExpr = as.matrix(read.table("Sample\_mRNA\_expression.txt", head = FALSE, sep = "\t"))<br>	
+>sampleMatch = as.matrix(read.table("TCGA\_HNSC\_sampleMatch.txt", head = TRUE, sep = "\t"))<br>
+>mirExpr = as.matrix(read.table("HNSC\_miRNA\_expression.txt", head = FALSE, sep = "\t"))<br>
+>tarExpr = as.matrix(read.table("HNSC\_mRNA\_expression.txt", head = FALSE, sep = "\t"))<br>	
 
-Note that the input miRNA/mRNA file should be transformed into a non-negative matrix, in order for the main program to execute correctly. To achieve optimal prediction on the RNA sequencing data, we strongly recommend that users provide log2 transformed normalized counts (e.g. RSEM or RPM) as the input for our program.
 
-We are also preparing an **R package** for the algorithm.
+We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for more advanced users.
 
 ---
 ### <a name="5">3. Reproduction of the miRACLe paper`s analyses</a><br>
-1. The codes to reproduce these analyses in the paper are written in R and should be executed in the corresponding software environment.<br> 
+1. The codes to reproduce these analyses in the paper are written in R.<br> 
 2. Generally, all these [codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses) are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN PROGRAM'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
 3. Files required for the reproduction of the analyses can be broadly classified into three categories:<br>
 
-* Input sequence data files (Sequence data)<br>
+* Input sequence-based score files (seqScore)<br>
 
 	| Data file | Description | 
 	|:-------------:|:-------------| 
-	| CWCS\_matrix.txt | _cumulative weighted context++ score_ between a miRNA and an mRNA |
-	| qMRE\_matrix.txt | number of target sites on one mRNA for one miRNA (quantitative miRNA response elements, qMREs) |
-	| qMRE\_con\_matrix.txt | number of conserved target sites on one mRNA for one miRNA|
-	| mirna\_list.txt | miRNA identifiers in the above files|
-	| mrna\_list.txt | mRNA identifiers in the above files|
+	| TargetScan7\_CWCS\_cons.txt | cumulative weighted context++ scores for conserved targets sites of conserved miRNA families obtained from TargetScan v7.2 |
+	| TargetScan7\_CWCS.txt | cumulative weighted context++ scores for all miRNA-mRNA pairs obtained from TargetScan v7.2 |
+    | TargetScan7\_qMRE\_cons.txt | number of conserved target sites of conserved miRNA families obtained from TargetScan v7.2 |
+	| TargetScan7\_qMRE.txt | number of target sites for all miRNA-mRNA pairs obtained from TargetScan v7.2 |
+	| DIANA\_microT\_CDS.txt | human interactions with miTG scores greater than 0.7 obtained from DIANA\-microT\-CDS|
+	| miRanda\_mirSVR.txt | human conserved miRNA predictions with good mirSVR score obained from miRanda\-mirSVR|
+    | miRmap.txt | predictions from miRmap|
+    | miRTar2GO.txt | predictions from the “Highly sensitive” prediction set of miRTar2GO|    
+    | miRTar2GO\_HeLa.txt | predictions in HeLa cells from the “Highly sensitive” prediction set of miRTar2GO|
+    | MirTarget4.txt | human predictions obtained from miRDB v6.0|
+    | miRWalk3.txt | human predictions restricted to 3`UTR obtained from miRWalk v3.0|
+    | PITA.txt | the top human predictions with 3/15 flank obtained from PITA|
+    | Combine_MMIs.txt | combined predictions from DIANA\-microT\-CDS, miRanda\-mirSVR, MirTarget4, PITA and TargetScan7.CWCS|
 
-	All these files are compiled from [TargetScan v7.0](http://www.targetscan.org/cgi-bin/targetscan/data_download.cgi?db=vert_70).
-
-* Input expression data files (Expression data)<br>
+* Input expression data files (mirExpr & tarExpr)<br>
 
 	| Data file| Descriptions |
 	|:-------------: |:-------------|
-	| TCGA data | Log2-transformed RPM/RSEM data for 7991 cancer patients from 32 TCGA cancer types |
-	| NCI60 data | Microarray profiling expression data of 59 NCI-60 cancer cell lines |
-    | Exosomal data | Log2-transformed RPM/TPM data for one blood exosome sample from prostate cancer patients and healthy persons|
-    | ESCC data | Microarray profiling expression data of paired tumour-normal tissues from 119 OSCC patients and associated clinical information |
+	| HeLa expression data | normalized microarray/RNA-Seq expression data for HeLa cell line |
+    | NCI60 data | normalized microarray data for 59 NCI-60 cancer cell lines |
+    | TCGA data | log2-transformed RPM/RSEM data for 7991 cancer patients from 32 TCGA cancer types |
+	| MCC data | normalized microarray data for 68 tumor tissues and 21 normal tissues |
 
-	These expression data files are provided in a compressed file [Expression DATA.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
+	These expression data files are provided in a compressed file [Expression_data.7z](https://www.dropbox.com/sh/aa0k59j39nftmo9/AAALFIiSpicrAEn8nRUJRjUWa?dl=0).<br> 
 
-* Files used in evaluation analyses (Reference data)<br>
+* Validation data (Reference data)<br>
 	* Experimentally validated MMIs<br>
 
 	| Data file | Description | validated MMI counts |
 	|:-------------:|:-------------|:-----:|
-	| V1 | [TarBase v7.0](http://carolina.imis.athena-innovation.gr/diana_tools/web/index.php?r=tarbasev8%2Findex) | 307,010 |
-    | V2 | [miRTarbase v7.0](http://mirtarbase.mbc.nctu.edu.tw/php/index.php) | 380,639 |
-	| V3 | high-confidence set compiled from [miRTarbase](http://carolina.imis.athena-innovation.gr/diana_tools/web/index.php?r=tarbasev8%2Findex), [miRecords](http://mirecords.umn.edu/miRecords) and [oncomiRDB](http://bioinfo.au.tsinghua.edu.cn/oncomirdb/) | 9642 |
-    | V4 | high-confidence set from [starBase v2.0](http://starbase.sysu.edu.cn/starbase2/index.php) | 10,028 |
+	| Vset\_HeLa.txt | MMIs that are validated in HeLa cells from TarBase v8.0 | 34,263 |
+    | Vset\_Celllines.txt | MMIs that are validated in cell lines from TarBase v8.0 | 349,726 |
+	| Vset\_all.txt | validated MMIs obtained from TarBase v8.0 | 376,205 |
+    | Vset\_hc.txt | high-confidence set compiled from TarBase v8.0, miRTarbase v7.0, miRecords and oncomirDB | 10,575 |
 	
     * Curated miRNA transfection experiments<br>
 
     | Data file | Description |
 	|:-------------:|:-------------|
-	| T1 | It contains 106 unique miRNA transfections and was originally collected by [Li _et al_](https://academic.oup.com/bioinformatics/article/30/5/621/247621) |
-	| T2 | It contains 23 unique miRNA transfections and was originally collected by [Gumienny R _et al_](https://academic.oup.com/nar/article/43/3/1380/2411948)|
+	| Transet\_HeLa\_Array.txt | Unified dataset of 5 miRNA transfections in HeLa cell line in which gene exrpession changes are measured by microarray | 
+    | Transet\_HeLa\_Seq.txt | Unified dataset of 25 miRNA transfections in HeLa cell line in which gene exrpession changes are measured by RNA-Seq |
+    | Transet\_multi.txt | Unified dataset of 105 non\-redundant miRNA transfections that are originally collected from 77 human cell lines or tissues |
 
-	* Known cancer-related miRNAs and genes<br>
+
+	* Known cancer genes<br>
 
 	| Data file | Description | Molecule counts |
 	|:-------------:|:-------------|:-----:|
-	| miRNA biomarker set | miRNAs obtained from [oncomiR](http://www.oncomir.org) that are simultaneously correlated with tumor development, tumor staging, tumor grade and patient survival | 288 |
-	| Oncomir set | high-confidence cancer associated miRNAs compiled from [MNDR v2.0](http://www.rna-society.org/mndr/) database | 399 |
-    | Cancer gene set | cancer gene census from [COSMIC](https://cancer.sanger.ac.uk/census) database | 616 |<br>
+    | Cancer\_gene\_set | cancer genes obtained from cancer gene census | 723 |<br>
 
     These reference data files are provided along with relevant [source codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses).
 
     Detailed descriptions of all the above data files are provided in the **Supplementary Note** of the paper.<br>
 
 ---
-### <a name="6">4. TCGA&NCI-60 prediction results</a><br>
-miRACLe can provide both population-level result and individual-level result. To show as an example, [Here](https://github.com/PANWANG2014/miRACLe/tree/master/Prediction%20results) we provide the detailed population-level results for each of the 32 TCGA cancer types and the individual-level results for each of the 59 NCI-60 cell lines.
+### <a name="6">4. References</a><br>
+
+miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model (in preparation)
 
