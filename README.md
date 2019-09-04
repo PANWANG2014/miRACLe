@@ -149,7 +149,6 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 
     These reference data files are provided along with relevant [source codes](https://github.com/PANWANG2014/miRACLe/tree/master/Source%20codes%20for%20analyses).
 
-    Detailed descriptions of all the above data files are provided in the **Supplementary Note** of the paper.<br>
 
 ---
 ### <a name="6">4. References</a><br>
