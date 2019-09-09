@@ -116,7 +116,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | miRWalk3.txt | human predictions restricted to 3`UTR obtained from miRWalk v3.0|
     | PITA.txt | the top human predictions with 3/15 flank obtained from PITA|
     | Combine_MMIs.txt | combined predictions from DIANA\-microT\-CDS, miRanda\-mirSVR, MirTarget4, PITA and TargetScan7.CWCS|
-    | Symbol\_to\_ID.txt | paired gene symbols and gene entrez ids downloaded from [HGNC](https://www.genenames.org/download/custom/)|
+    | Symbol\_to\_ID.txt | paired gene symbols and gene entrez IDs downloaded from [HGNC](https://www.genenames.org/download/custom/)|
 
     These predictions are provided in a compressed file [Sequence\_based\_predictions.7z](https://figshare.com/s/82ffa5da58faf080230e).<br> 
 
