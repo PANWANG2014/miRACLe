@@ -71,7 +71,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 	The remainder of the file contains sample identifiers used in the miRNA and mRNA expression files. There is one line for each sample. Each line contains the identifiers for that sample.<br>
 
 #### <a name="4">2.2 Script Execution</a><br>
-miRACLe is written in R. The source code of [miRACLe](https://github.com/PANWANG2014/miRACLe/blob/master/miRACLe/miRACLe.R) consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The main function "miracle" in the "MAIN PROGRAM" calculates the miracle score for each miRNA-mRNA pair, based on which all putative MMIs are ranked. The essential inputs that the miRACLe algorithm requires to run includes two parts:<br>
+miRACLe is written in R and can be downloaded [here](https://github.com/PANWANG2014/miRACLe-Research/tree/master/Run%20miRACLe) along with test datasets. The source code of miRACLe consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The main function "miracle" in "MAIN PROGRAM" calculates the miracle score for each miRNA-mRNA pair at individual and population levels, based on which all putative MMIs are ranked. The essential inputs that the miRACLe algorithm requires to run includes two parts:<br>
 
 The first part contains the sequence-based interaction scores (seqScore) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
 	
@@ -87,8 +87,11 @@ The second part contains paired miRNA-mRNA expression profiles and should be pro
 
 The "miracle" function also provides three optional parameters for users, which are: exprFilter (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1), samSelect (sample selection, users can select a subset of all samples to analyze, default is no selection applied) and OutputSelect (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
 
+>miracle(seqScore, sampleMatch, mirExpr, tarExpr)	#default<br>
+>miracle(seqScore, sampleMatch, mirExpr, tarExpr, exprFilter = 1, samSelect, OutputSelect = TRUE) #optional parameters added
 
-We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm.
+
+We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for ease of use.
 
 ---
 ### <a name="5">3. Benchmarking evaluations</a><br>
