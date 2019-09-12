@@ -71,7 +71,7 @@ In order to run the current version of miRACLe, the users should provide two dat
 	The remainder of the file contains sample identifiers used in the miRNA and mRNA expression files. There is one line for each sample. Each line contains the identifiers for that sample.<br>
 
 #### <a name="4">2.2 Script Execution</a><br>
-miRACLe is written in R and can be downloaded [here](https://github.com/PANWANG2014/miRACLe-Research/tree/master/Run%20miRACLe) along with test datasets. The source code of miRACLe consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN PROGRAM'. The main function "miracle" in "MAIN PROGRAM" calculates the miracle score for each miRNA-mRNA pair at individual and population levels, based on which all putative MMIs are ranked. The essential inputs that the miRACLe algorithm requires to run includes two parts:<br>
+miRACLe is written in R and can be downloaded [here](https://github.com/PANWANG2014/miRACLe-Research/tree/master/Run%20miRACLe) along with test datasets. The source code of miRACLe consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN CODE'. The main function "miracle" in "MAIN PROGRAM" calculates the miracle score for each miRNA-mRNA pair at individual and population levels, based on which all putative MMIs are ranked. The essential inputs that the miRACLe algorithm requires to run includes two parts:<br>
 
 The first part contains the sequence-based interaction scores (seqScore) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
 	
@@ -96,7 +96,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 ---
 ### <a name="5">3. Benchmarking evaluations</a><br>
 1. The codes to reproduce the benchmarking evaluations are written in R.<br> 
-2. Generally, all these codes are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN PROGRAM'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
+2. Generally, all these codes are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN CODE'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
 3. Files required for the reproduction of the evaluations can be broadly classified into three categories:<br>
 
 * Sequence-based predictions (including seqScores for integrative methods)<br>
