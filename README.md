@@ -161,5 +161,5 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 ---
 ### <a name="6">4. References</a><br>
 
-miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model (in preparation)
+miRACLe: improving prediction of miRNA-mRNA interactions by a random contact model (in preparation)
 
