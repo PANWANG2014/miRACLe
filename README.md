@@ -6,9 +6,9 @@
 2. <a href="#2">Executing miRACLe</a><br>
 	2.1 <a href="#3">Files required</a><br>
 	2.2 <a href="#4">Script Execution</a><br>
-    2.3 <a href="#4">R package</a><br>
-3. <a href="#5">Benchmarking evaluations</a><br>
-4. <a href="#6">References</a>
+    2.3 <a href="#5">R package</a><br>
+3. <a href="#6">Benchmarking evaluations</a><br>
+4. <a href="#7">References</a>
 
 
 
