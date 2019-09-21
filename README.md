@@ -163,5 +163,5 @@ The **R package** of the miRACLe algorithm and the manual are provided [here](ht
 ---
 ### <a name="7">4. References</a><br>
 
-miRACLe: improving prediction of miRNA-mRNA interactions by a random contact model (in preparation)
+miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model (in preparation)
 
