@@ -75,15 +75,17 @@ miRACLe is written in R and can be downloaded [here](https://github.com/PANWANG2
 
 The first part contains the sequence-based interaction scores (seqScore) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
 	
-> seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))<br>
+``` seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))```
 
 User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
 
 The second part contains paired miRNA-mRNA expression profiles and should be provided by the users. 
 
->sampleMatch = as.matrix(read.table("Test\_sampleMatch.txt", head = TRUE, sep = "\t"))<br>
->mirExpr = as.matrix(read.table("Test\_miRNA\_expression.txt", head = FALSE, sep = "\t"))<br>
->tarExpr = as.matrix(read.table("Test\_mRNA\_expression.txt", head = FALSE, sep = "\t"))<br>	
+```
+sampleMatch = as.matrix(read.table("Test\_sampleMatch.txt", head = TRUE, sep = "\t"))
+mirExpr = as.matrix(read.table("Test\_miRNA\_expression.txt", head = FALSE, sep = "\t"))
+tarExpr = as.matrix(read.table("Test\_mRNA\_expression.txt", head = FALSE, sep = "\t"))
+```	
 
 The "miracle" function also provides three optional parameters for users, which are: exprFilter (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1), samSelect (sample selection, users can select a subset of all samples to analyze, default is no selection applied) and OutputSelect (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
 
