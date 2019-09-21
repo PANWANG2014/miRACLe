@@ -6,6 +6,7 @@
 2. <a href="#2">Executing miRACLe</a><br>
 	2.1 <a href="#3">Files required</a><br>
 	2.2 <a href="#4">Script Execution</a><br>
+    2.3 <a href="#4">R package</a><br>
 3. <a href="#5">Benchmarking evaluations</a><br>
 4. <a href="#6">References</a>
 
@@ -13,8 +14,7 @@
 
 ---
 ### <a name="1">1. Introduction</a>
-**miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** is a newly developed miRNA target prediction tool. It combines genome-wide expression profiles and the cumulative weighted context++ score from TargetScan in a random contact model, and then infers miRNA-mRNA interactions (MMIs) by the relative probability of effective contacts. Evaluation by a variety of measures shows that miRACLe consistently outperforms state-of-the-art methods in prediction accuracy, regulatory potential and biological relevance while has a distinct feature of inferring individual-specific miRNA targets. Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 30 seconds of CPU time to complete the prediction for one sample. Importantly, we show that our model can also be applied to other sequence-based algorithms to improve their predictive power, such as DIANA-microT-CDS, miRanda-mirSVR and MirTarget4.  <br>
-
+The strength of miRNA-mRNA interactions (MMIs) in a biological system depends on both the sequence characteristics and expression patterns of RNAs. Integrating the two features into a random contact model, we propose **miRACLe (<u>miR</u>NA <u>A</u>nalysis by a <u>C</u>ontact mode<u>L</u>)** to achieve miRNA target prediction at both individual and population levels. Evaluation by a variety of measures shows that fitting a sequence-based algorithm into the framework of miRACLe can improve its prediction power with a significant margin, and the combination of miRACLe and the cumulative weighted context++ scores from TargetScan consistently outperforms state-of-the-art methods in prediction accuracy, regulatory potential and biological relevance.Empirical test suggests that on a laptop Intel Core i7-4712HQ personal computer with a 2.30 GHz CPU and 16 GB of RAM, our source code implementation requires less than 10 seconds of CPU time to complete the prediction for an individual sample.<br>
 
 ---
 ### <a name="2">2. Executing miRACLe</a>
@@ -73,9 +73,9 @@ In order to run the current version of miRACLe, the users should provide two dat
 #### <a name="4">2.2 Script Execution</a><br>
 miRACLe is written in R and can be downloaded [here](https://github.com/PANWANG2014/miRACLe-Research/tree/master/Run%20miRACLe) along with test datasets. The source code of miRACLe consists of three parts, namely, 'FUNCTIONS', 'DATA INPUT' and 'MAIN CODE'. The main function "miracle" in "MAIN PROGRAM" calculates the miracle score for each miRNA-mRNA pair at individual and population levels, based on which all putative MMIs are ranked. The essential inputs that the miRACLe algorithm requires to run includes two parts:<br>
 
-The first part contains the sequence-based interaction scores (seqScore) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
+The first part contains the sequence-based interaction scores (`seqScore`) for putative miRNA-mRNA pairs. These scores are originally obtained from TargetSan v7.2 (TargetScan7\_CWCS\_cons and TargetScan7\_CWCS), DIANA-microT-CDS (DIANA\_microT\_CDS), MirTarget v4 (MirTarget4), miRanda-mirSVR (miRanda\_mirSVR) and compiled by the developers to fit the model. Default is **TargetScan7\_CWCS\_cons**. The other scores can be downloaded [here](https://figshare.com/s/0b7c68cd5152da27a191).<br>
 	
-``` seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))```
+```seqScore = as.matrix(read.table("TargetScan7_CWCS_cons.txt", head = TRUE, sep = "\t"))```
 
 User can also provide their own sequence matching scores, as long as the format of input file meets the requirements. Specifically, the first line must contain the label Names for mRNAs, miRNAs and their associated interaction scores. The remainder of the file contains RNA identifiers corresponding to those used in the expression files and the scores for each miRNA-mRNA pair. Note that the first column must contain identifiers for mRNAs, the second column must contain identifiers for miRNAs with the third column containing the associated scores.<br>
 
@@ -87,21 +87,22 @@ mirExpr = as.matrix(read.table("Test\_miRNA\_expression.txt", head = FALSE, sep 
 tarExpr = as.matrix(read.table("Test\_mRNA\_expression.txt", head = FALSE, sep = "\t"))
 ```	
 
-The "miracle" function also provides three optional parameters for users, which are: exprFilter (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1), samSelect (sample selection, users can select a subset of all samples to analyze, default is no selection applied) and OutputSelect (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
+The "miracle" function also provides three optional parameters for users, which are: `samSelect` (sample selection, users can select a subset of all samples to analyze, default is no selection applied), `exprFilter` (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1),  and `OutputSelect` (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
 
->miracle(seqScore, sampleMatch, mirExpr, tarExpr)	#default<br>
->miracle(seqScore, sampleMatch, mirExpr, tarExpr, exprFilter = 1, samSelect, OutputSelect = TRUE) #optional parameters added
+```
+miracle(seqScore, sampleMatch, mirExpr, tarExpr, samSelect = NULL, exprFilter = 1, OutputSelect = TRUE)
+```
 
-
-We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/master/miRACLe/Sequence%20scores) of the algorithm for ease of use.
+#### <a name="5">2.3 R package</a><br>
+The **R package** of the miRACLe algorithm and the manual are provided [here](https://github.com/lookgene/miRACLe).
 
 ---
-### <a name="5">3. Benchmarking evaluations</a><br>
+### <a name="6">3. Benchmarking evaluations</a><br>
 1. The codes to reproduce the benchmarking evaluations are written in R.<br> 
 2. Generally, all these codes are arranged into three parts as 'FUNCTIONS', 'INPUT DATA' and 'MAIN CODE'. The users need to download and fill in the relevant input files before implementing corresponding analyses.<br>
 3. Files required for the reproduction of the evaluations can be broadly classified into three categories:<br>
 
-* Sequence-based predictions (including seqScores for integrative methods)<br>
+* Sequence-based predictions (including the seqScore for integrative methods)<br>
 
 	| Data file | Description | 
 	|:-------------:|:-------------| 
@@ -122,7 +123,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
 
     These predictions are provided in a compressed file [Sequence\_based\_predictions.7z](https://figshare.com/s/82ffa5da58faf080230e).<br> 
 
-* Input expression data files (mirExpr & tarExpr)<br>
+* Input expression data files<br>
 
 	| Data file| Descriptions |
 	|:-------------: |:-------------|
@@ -151,7 +152,6 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     | Transet\_HeLa\_Seq.txt | Unified dataset of 25 miRNA transfections in HeLa cell line in which gene exrpession changes are measured by RNA-Seq |
     | Transet\_multi.txt | Unified dataset of 105 non\-redundant miRNA transfections that are originally collected from 77 human cell lines or tissues |
 
-
 	* Known cancer genes<br>
 
 	| Data file | Description | Molecule counts |
@@ -161,7 +161,7 @@ We also provide an [**R package**](https://github.com/PANWANG2014/miRACLe/tree/m
     These reference data files are provided along with relevant source codes.
 
 ---
-### <a name="6">4. References</a><br>
+### <a name="7">4. References</a><br>
 
 miRACLe: improving prediction of miRNA-mRNA interactions by a random contact model (in preparation)
 
