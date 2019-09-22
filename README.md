@@ -89,7 +89,7 @@ mirExpr = as.matrix(read.table("Test_DLBC_miRNA.txt", head = FALSE, sep = "\t"))
 tarExpr = as.matrix(read.table("Test_DLBC_mRNA.txt", head = FALSE, sep = "\t"))
 ```	
 
-The "miracle" function also provides three optional parameters for users, which are: `samSelect` (sample selection, users can select a subset of all samples to analyze, default is no selection applied), `exprFilter` (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1),  and `OutputSelect` (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
+The 'miracle' function also provides three optional parameters for users, which are: `samSelect` (sample selection, users can select a subset of all samples to analyze, default is NULL, which means no selection will applied), `exprFilter` (filter of expression profile, miRNAs/mRNAs that are not expressed in more than a given percentage of samples will be removed, default is 1),  and `OutputSelect` (logical variable, select “TRUE” to return the top 10 percent-ranked predictions by scores, and “FALSE” to return the whole prediction result. Default is TRUE).
 
 ```r
 miracle(seqScore, sampleMatch, mirExpr, tarExpr, samSelect = NULL, exprFilter = 1, OutputSelect = TRUE)
