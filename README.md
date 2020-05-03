@@ -1,4 +1,4 @@
-# miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model
+# MiRACLe: an Individual-Specific Approach to Improve MicroRNA-Target Prediction Based on a Random Contact Model
 <br>
 
 ## Table of contents
@@ -165,5 +165,5 @@ The **R package** of the miRACLe algorithm is provided [here](https://github.com
 ---
 ### <a name="7">4. References</a><br>
 
-miRACLe: improving the prediction of miRNA-mRNA interactions by a random contact model (in preparation)
+MiRACLe: an Individual-Specific Approach to Improve MicroRNA-Target Prediction Based on a Random Contact Model (in preparation)
 
